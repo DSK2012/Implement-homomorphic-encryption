@@ -45,43 +45,19 @@ key = b'[EX\xc8\xd5\xbfI{\xa2$\x05(\xd5\x18\xbf\xc0\x85)\x10nc\x94\x02)j\xdf\xcb
 enc = Encryptor(key)
 clear = lambda: os.system('cls')
 
-if os.path.isfile('data.txt.enc'):
-    while True:
-        password = str(input("Enter password: "))
-        enc.decrypt_file("data.txt.enc")
-        p = ''
-        with open("data.txt", "r") as f:
-            p = f.readlines()
-        if p[0] == password:
-            enc.encrypt_file("data.txt")
-            break
 
-    while True:
-        clear()
-        choice = int(input(
-            "1. Press '1' to encrypt file.\n2. Press '2' to decrypt file.\n5. Press '5' to exit.\n"))
-        clear()
-        if choice == 1:
-            enc.encrypt_file(str(input("Enter name of file to encrypt: ")))
-        elif choice == 2:
-            enc.decrypt_file(str(input("Enter name of file to decrypt: ")))
-        elif choice == 5:
-            exit()
-        else:
-            print("Please select a valid option!")
+arr1 = [1,2,3,4]
+arr2 = []
+arr3 = []
+for i in arr1:
+    arr2.append(enc.encrypt(str(i).encode(),key))
 
-else:
-    while True:
-        clear()
-        password = str(input("Setting up stuff. Enter a password that will be used for decryption: "))
-        repassword = str(input("Confirm password: "))
-        if password == repassword:
-            break
-        else:
-            print("Passwords Mismatched!")
-    f = open("data.txt", "w+")
-    f.write(password)
-    f.close()
-    enc.encrypt_file("data.txt")
-    print("Please restart the program to complete the setup")
-    time.sleep(15)
+print("\n")
+print("encrypted data")
+print(arr2)
+print("\n")
+print("decrypted data")
+
+for i in arr2:
+    arr3.append(int(enc.decrypt(i,key).decode()))
+print(arr3)
